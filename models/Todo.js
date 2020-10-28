@@ -6,5 +6,9 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
+  model.associate = (models) => {
+    model.belongsTo(models.Person, { foreignKey: "person_id" });
+  };
+
   return model;
 }
