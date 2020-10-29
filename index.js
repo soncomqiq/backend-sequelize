@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/todos", todoRoutes);
-app.use("/person", personRoutes);
+app.use("/persons", personRoutes);
 
 app.listen("8000", () => {
   console.log("Server is running at 8000");

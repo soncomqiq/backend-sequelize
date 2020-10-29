@@ -1,19 +1,26 @@
 const db = require("../models");
 
 const getAllPersons = async (req, res) => {
-  const allPersons = await db.Person.findAll();
+  const allPersons = await db.Person.findAll({ include: [db.Todo] });
   res.status(200).send(allPersons);
 };
 
 const getPersonById = async (req, res) => {
   const targetId = req.params.id;
-  const targetPerson = await db.Person.findOne({ where: { id: targetId } });
+  const targetPerson = await db.Person.findOne({ where: { id: targetId }, include: [db.Todo] });
   res.status(200).send(targetPerson);
 };
 
 const createPerson = async (req, res) => {
-  const { name, age } = req.body;
-  const newPerson = await db.Person.create({ name, age });
+  
+  const { name, age, todoss } = req.body;
+  const newPerson = await db.Person.create({
+    name,
+    age,
+    Todos: todoss
+  }, {
+    include: [db.Todo]
+  }); 
   res.status(201).send(newPerson);
 };
 
