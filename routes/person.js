@@ -1,10 +1,13 @@
 const router = require("express").Router();
+const passport = require("passport");
 const personController = require("../controllers/person");
 
-router.get("/", personController.getAllPersons);
-router.get("/:id", personController.getPersonById);
-router.post("/", personController.createPerson);
-router.put("/:id", personController.updatePerson);
-router.delete("/:id", personController.deletePerson);
+const auth = passport.authenticate("jwt", { session: false });
+
+router.get("/", auth, personController.getAllPersons);
+router.get("/:id", auth, personController.getPersonById);
+router.post("/", auth, personController.createPerson);
+router.put("/:id", auth, personController.updatePerson);
+router.delete("/:id", auth, personController.deletePerson);
 
 module.exports = router;

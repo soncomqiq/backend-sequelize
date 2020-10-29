@@ -2,6 +2,7 @@ const db = require("../models");
 
 const getAllPersons = async (req, res) => {
   const allPersons = await db.Person.findAll({ include: [db.Todo] });
+  console.log(req.user)
   res.status(200).send(allPersons);
 };
 
